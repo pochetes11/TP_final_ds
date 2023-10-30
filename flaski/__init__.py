@@ -35,8 +35,6 @@ def create_app(test_config=None):
     from . import track
     app.register_blueprint(track.bp)
 
-    @app.route('/')
-    def principal():
-        return render_template("base.html")
+   
 
     return app
