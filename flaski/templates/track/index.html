@@ -1,16 +1,15 @@
 {% block header %}
 <h1>{% block title %}---{% endblock %}</h1>
 {% endblock %} {% block content %} 
-{% for track in tracks %}
+{% for t in tracks %}
 <article class="post">
   <header>
     <div>
-      <h1>{{ track'title'] }}</h1>
+      <h1>{{ t['titulo'] }}</h1>
       <div class="about">
-        by {{ track['username'] }} on {{ track['created'].strftime('%Y-%m-%d') }}
+        {{ t['cancion'] }}
       </div>
     </div>
   </header>
-  <p class="body">{{ post['body'] }}</p>
 </article>
 {% endfor %} {% endblock %}
