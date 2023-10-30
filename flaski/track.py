@@ -12,7 +12,7 @@ bp = Blueprint('track', __name__, url_prefix="/track")
 def index():
     db = get_db()
     tracks = db.execute(
-        """SELECT t.name,a.name FROM tracks t
+        """SELECT t.name as titulo,al.Title as cancion FROM tracks t
                 JOIN albums al ON al.AlbumId = t.AlbumId
                 JOIN artists a ON a.ArtistId = al.ArtistId"""
     ).fetchall()
