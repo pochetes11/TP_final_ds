@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block header %}
+<h1>{% block title %}Pochettini{% endblock %}</h1>
+{% endblock %} {% block content %} 
+{% for t in tracks %}
+<article class="post">
+  <header>
+    <div>
+      <h1>{{ t['titulo'] }}</h1>
+      <div class="about">
+        <h4> genero: {{ t['genero'] }} </h4></
+        <h4> artista: {{ t['artista'] }} </h4>
+        <h4> formato: {{ t['formato'] }} </h4>
+      </div>
+    </div>
+  </header>
+</article>
+{% endfor %} {% endblock %}
