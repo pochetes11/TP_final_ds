@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<title>{% block title %}{% endblock %} Musica</title>
+<title>{% block title %}{% endblock %} Pochettini</title>
 
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 <nav>
-  <h1>Musica</h1>
+  <h1>Pochettini</h1>
   <ul>
     <li><a href="{{ url_for('track.index') }}">Canciones</a> </li>
+    <li><a href="{{ url_for('alb.index') }}">Albums</a> </li>
+    <li><a href="{{ url_for('art.index') }}">Artista/as</a> </li>
   </ul>
 </nav>
 <section class="content">
