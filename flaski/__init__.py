@@ -38,9 +38,10 @@ def create_app(test_config=None):
 
     from . import alb
     app.register_blueprint(alb.bp)
+    app.add_url_rule('/', endpoint='alb.index')
 
     from . import art
     app.register_blueprint(art.bp)
-
+    app.add_url_rule('/', endpoint='art.index')
 
     return app
