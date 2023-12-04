@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template
+from flaski import (Flask, render_template)
 
 
 def create_app(test_config=None):
@@ -24,24 +24,35 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
+    # a simple page that says tuki
+    @app.route('/tuki')
+    def tuki():
+        return 'tuki!'
+    
+    @app.route('/')
+    def index():
+        return render_template('index.html')
 
+    from . import auth
+    app.register_blueprint(auth.bp) 
+    
     from . import db
     db.init_app(app)
+
+
+    #from . import auth
+    #app.register_blueprint(auth.bp)
     
     from . import track
     app.register_blueprint(track.bp)
-    app.add_url_rule('/', endpoint='track.index')
+    app.register_blueprint(track.bpapi)
 
-    from . import alb
-    app.register_blueprint(alb.bp)
-    app.add_url_rule('/', endpoint='alb.index')
+    from . import albums
+    app.register_blueprint(albums.bp)
+    app.register_blueprint(albums.bpapi)
 
-    from . import art
-    app.register_blueprint(art.bp)
-    app.add_url_rule('/', endpoint='art.index')
-
+    from . import artist
+    app.register_blueprint(artist.bp)
+    app.register_blueprint(artist.bpapi)
+    
     return app
