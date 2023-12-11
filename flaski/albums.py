@@ -4,7 +4,7 @@ from flask import (
 from werkzeug.exceptions import abort
 
 #from application.auth import login_required
-from application.db import get_db
+from flaski.db import get_db
 
 bp = Blueprint('albums', __name__, url_prefix='/album')
 bpapi = Blueprint('api_album', __name__, url_prefix="/api/album")

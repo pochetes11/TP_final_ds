@@ -5,16 +5,14 @@ from flask import current_app, g
 
 
 def get_db():
-    if 'db' not in g:
-        conn = psycopg2.connect(host="127.0.0.1",
-            database="chinook",
-            user="postgres",
-            password="postgres",
-            port=5432)
-        g.conn = conn
-        g.db = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-
-    return g.db
+    conn = psycopg2.connect(host="127.0.0.1",
+        database="chinook",
+        user="postgres",
+        password="postgres",
+        
+        port=5432)
+    db = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    return db
 
 
 def close_db(e=None):
@@ -30,7 +28,7 @@ def close_db(e=None):
 def init_db():
     db = get_db()
 
-    with current_app.open_resource('schema.sql') as f:
+    with current_app.open_resource('db.sql') as f:
         db.execute(f.read().decode('utf8'))
 
 

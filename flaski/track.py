@@ -1,10 +1,11 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, jsonify
 )
+import psycopg2
 from werkzeug.exceptions import abort
 
 #from application.auth import login_required
-from application.db import get_db
+from flaski.db import get_db
 
 bp = Blueprint('tracks', __name__, url_prefix='/tracks')
 bpapi = Blueprint('api_tracks', __name__, url_prefix="/api/tracks")
@@ -15,12 +16,12 @@ def index():
     db = get_db()
     db.execute(
         """SELECT t.TrackId AS id, t.Name AS nombre
-         FROM tracks t ORDER BY t.Name DESC """
+         FROM tracks t ORDER BY t.Name ASC """
     )
     cancion=db.fetchall()
     return render_template('tracks/index.html', cancion=cancion)
 
-@bp.route('/detallito/<int:id>/', methods=('GET', 'POST'))
+@bp.route('/detalle/<int:id>/', methods=('GET', 'POST'))
 def get_track(id):
     db = get_db()
     db.execute(
@@ -35,8 +36,10 @@ def get_track(id):
     print(trackn)
     print(id)
     print(type(id))
+    db.connection.commit()
     db.close()
-    db = get_db()
+    db = db.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    #db = get_db()
     db.execute
     (
         """SELECT g.Name AS genero, Composer, Milliseconds,
