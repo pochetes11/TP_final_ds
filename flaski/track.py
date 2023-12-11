@@ -37,7 +37,7 @@ def get_track(id):
     print(id)
     print(type(id))
     db.connection.commit()
-    db.close()
+    #db.close()
     db = db.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     #db = get_db()
     db.execute
@@ -53,7 +53,7 @@ def get_track(id):
     print(db.query)
     print(db.rowcount)
     print(db.rownumber)
-    tracki = db.fetchone()
+    tracki = g.db.fetchone()
     print(tracki)
 
     if tracki is None:
