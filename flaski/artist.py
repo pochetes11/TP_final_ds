@@ -23,7 +23,7 @@ def index():
 
 @bp.route('/<int:id>/', methods=('GET', 'POST'))
 def get_artist(id):
-    db = get_db
+    db = get_db()
     db.execute(
         """SELECT ar.Name AS artista 
          FROM artists ar
@@ -31,9 +31,10 @@ def get_artist(id):
         (id,)
     )
     artist = db.fetchone()
-    db = get_db
+
+    db = get_db()
     db.execute(
-        """SELECT a.Title AS disco FROM albums a
+        """SELECT a.Title AS disco, a.AlbumID AS id FROM albums a
          WHERE a.ArtistId = %s""",
         (id,)
     )
@@ -42,8 +43,7 @@ def get_artist(id):
     if artist is None:
         abort(404, f"Artist id {id} doesn't exist.")
 
-    return render_template('artists/detallito.html', artist=artist, albums=albums)
-#-----------------------------------------------------------json-----------------------------------------------------------------------
+    return render_template('artists/detalles.html', artist=artist, albums=albums)
 
 @bpapi.route('/')
 def index():
@@ -72,7 +72,7 @@ def get_artist(id):
         abort(404, f"Artist id {id} doesn't exist.")
 
     db.execute(
-        """SELECT a.Title AS disco FROM albums a
+        """SELECT a.Title AS disco, a.AlbumID AS id FROM albums a
          WHERE a.ArtistId = %s""",
         (id,)
     )

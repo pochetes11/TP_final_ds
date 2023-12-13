@@ -3,11 +3,12 @@
 <h1>{% block title %}{{ trackn['nombre'] }}{% endblock %}</h1>
 {% endblock %} 
 {% block content %} 
- 
-{% for t in tracki %}
-<p>{{ t['genero'] }}</p>
-<p>{{ t['Composer'] }}</p>
-<p>{{ t['Milliseconds'] }} Milliseconds</p>
-<p>{{ t['Bytes'] }} Bytes</p>
-<p>{{ t['UnitPrice'] }}</p>
-{% endfor %} {% endblock %}
+
+<p><a href="{{ url_for('artist.get_artist', id= tracki['ides'])}}"></a></p>
+<p><a href="{{ url_for('albums.get_album',  id=tracki['disco']) }}"></a></p>
+<p>{{ tracki['genero'] }}</p>
+<p>{{ tracki['composer'] }}</p>
+<p>{{ tracki['milliseconds'] }} Milliseconds</p>
+<p>{{ tracki['bytes'] }} Bytes</p>
+<p>{{ tracki['unitPrice'] }}</p>
+{% endblock %}

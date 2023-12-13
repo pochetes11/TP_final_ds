@@ -18,6 +18,9 @@ def index():
         """SELECT t.TrackId AS id, t.Name AS nombre
          FROM tracks t ORDER BY t.Name ASC """
     )
+    print(db.query)
+    print(db.rowcount)
+    print(db.rownumber)
     cancion=db.fetchall()
     return render_template('tracks/index.html', cancion=cancion)
 
@@ -36,12 +39,9 @@ def get_track(id):
     print(trackn)
     print(id)
     print(type(id))
-    db.connection.commit()
-    #db.close()
-    db = db.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-    #db = get_db()
-    db.execute
-    (
+    db = get_db()
+
+    db.execute(
         """SELECT g.Name AS genero, Composer, Milliseconds,
          Bytes, UnitPrice
          FROM tracks t 
@@ -53,7 +53,7 @@ def get_track(id):
     print(db.query)
     print(db.rowcount)
     print(db.rownumber)
-    tracki = g.db.fetchone()
+    tracki = db.fetchone()
     print(tracki)
 
     if tracki is None:
@@ -84,7 +84,7 @@ def get_track_api(id):
 
     db=get_db()
     db.execute(
-        """SELECT g.Name AS genero, Composer, Milliseconds,
+        """SELECT g.Name AS genero, AlbumID AS ides, ArtistID AS disco, Composer, Milliseconds,
          Bytes, UnitPrice
          FROM tracks t 
          JOIN genres g ON t.GenreId=g.GenreId

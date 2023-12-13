@@ -6,10 +6,5 @@
 {% endblock %} 
 {% block content %} 
  {% for t in tracksi %}
- <p>{{ t['nombre'] }}</p>
-<p>{{ t['genero'] }}</p>
-<p>{{ t['Composer'] }}</p>
-<p>{{ t['Milliseconds'] }} Milliseconds</p>
-<p>{{ t['Bytes'] }} Bytes</p>
-<p id="espacio">{{ t['UnitPrice'] }}</p>
+ <p> <a href="{{url_for('tracks.get_track', id=t['id'])}}">{{ t['nombre'] }}</a></p>
 {% endfor %}  {% endblock %}

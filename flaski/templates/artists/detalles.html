@@ -8,7 +8,7 @@
 <span>sin discos</span>
 {% else %}    
 {% for a in albums %}
-<p>{{ a['disco'] }}</p>
+<a href="{{ url_for('albums.get_album',  id=a['id']) }}">{{ a['disco'] }}</a>
 
 {% endfor %}
 {% endif %}    

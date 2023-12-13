@@ -25,12 +25,14 @@ def get_album(id):
     db.execute(
     """SELECT AlbumId AS id, Title AS album 
          FROM albums
-          """
+         WHERE AlbumId = %s
+        """,
+     (id,)
     )
     album = db.fetchone()
 
     db.execute(
-        """SELECT t.Name AS nombre, g.Name AS genero, Composer, Milliseconds,
+        """SELECT t.Name AS nombre, TrackID AS id,g.Name AS genero, Composer, Milliseconds,
          Bytes, UnitPrice
          FROM tracks t 
          JOIN genres g ON t.GenreId=g.GenreId
@@ -63,18 +65,19 @@ def get_album(id):
     db.execute(
     """SELECT AlbumId AS id, Title AS album 
          FROM albums
-          """
+         WHERE AlbumId = %s""",
+        (id,)
     )
     album = db.fetchall()
     db.execute(
-        """SELECT t.Name AS nombre, g.Name AS genero, Composer, Milliseconds,
-         Bytes, UnitPrice
-         FROM tracks t 
-         JOIN genres g ON t.GenreId=g.GenreId
-         JOIN albums a ON t.AlbumId=a.AlbumId
-         WHERE t.AlbumId = %s
-         """,
-        (id,)
+      """SELECT t.Name AS nombre, g.Name AS genero, Composer, Milliseconds,
+        Bytes, UnitPrice
+        FROM tracks t 
+        JOIN genres g ON t.GenreId=g.GenreId
+        JOIN albums a ON t.AlbumId=a.AlbumId
+        WHERE t.AlbumId = %s
+        """,
+     (id,)
     )
     tracksi =db.fetchall()
 
